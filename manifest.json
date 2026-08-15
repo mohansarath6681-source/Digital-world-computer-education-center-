@@ -1,0 +1,25 @@
+{
+  "name": "Digital World PVC Card Print App",
+  "short_name": "Digital World PVC",
+  "description": "Digital World Computer Education Center - PVC Card Print App",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eef5fb",
+  "theme_color": "#1267d8",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
