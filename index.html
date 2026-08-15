@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#145be8">
+<link rel="manifest" href="manifest.json">
+<title>Digital World PVC Card</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img src="logo.png" alt="Digital World Computer Education">
+    <div><b>Digital World</b><small>PVC Card Service</small></div>
+  </div>
+  <button class="theme" onclick="document.body.classList.toggle('dark')">☾</button>
+</header>
+
+<main>
+<section class="hero">
+  <img src="logo.png" class="heroLogo">
+  <div>
+    <span>PVC CARD SERVICE</span>
+    <h1>अपने ID Card का<br>PVC Card बनवाएँ</h1>
+    <p>Front & Back Upload करके Order करें</p>
+  </div>
+</section>
+
+<h2>Card Select करें</h2>
+<div class="grid">
+<button class="service active" onclick="sel(this,'Aadhaar Card',50)">🪪<b>Aadhaar Card</b><small>₹50</small></button>
+<button class="service" onclick="sel(this,'PAN Card',50)">💳<b>PAN Card</b><small>₹50</small></button>
+<button class="service" onclick="sel(this,'Voter Card',50)">🗳️<b>Voter Card</b><small>₹50</small></button>
+<button class="service" onclick="sel(this,'Ayushman Card',50)">🏥<b>Ayushman Card</b><small>₹50</small></button>
+<button class="service" onclick="sel(this,'E-Shram Card',50)">👷<b>E-Shram Card</b><small>₹50</small></button>
+<button class="service" onclick="sel(this,'Other Card',50)">📄<b>Other Card</b><small>₹50</small></button>
+</div>
+
+<section class="panel"><h2>Front Side</h2>
+<input type="file" accept="image/*" onchange="preview(this,'p1')"><div id="p1"></div></section>
+
+<section class="panel"><h2>Back Side</h2>
+<input type="file" accept="image/*" onchange="preview(this,'p2')"><div id="p2"></div></section>
+
+<section class="panel"><h2>Customer Details</h2>
+<input id="name" placeholder="Customer Name">
+<input id="mobile" placeholder="Mobile Number" maxlength="10" inputmode="numeric">
+<input id="qty" type="number" value="1" min="1" oninput="total()">
+</section>
+
+<div class="summary"><b id="chosen">Aadhaar Card</b><strong>₹<span id="price">50</span></strong></div>
+<button class="order" onclick="order()">📲 WhatsApp Order</button>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
