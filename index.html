@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#1267d8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Digital World PVC Card"><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Digital World PVC Card Print App — No Payment</title>
+<style>
+.appLogo{width:42px;height:42px;object-fit:cover;border-radius:10px;vertical-align:middle;margin-right:9px;background:#fff;box-shadow:0 1px 5px #0003}
+.installBtn{display:none;margin:8px 0 0;background:#fff;color:#1267d8;border:0;font-weight:800}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#eef5fb;color:#18324d}
+header{position:sticky;top:0;z-index:10;background:#1267d8;color:#fff;padding:14px 16px;font-weight:700}
+header .sub{font-size:12px;font-weight:500;opacity:.9;margin-top:3px}
+main{max-width:980px;margin:auto;padding:14px}.card{background:#fff;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 3px 14px #00000012}
+h2{font-size:20px;margin:0 0 14px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-weight:700;margin:8px 0 6px}input,select,button{width:100%;font:inherit;border-radius:12px;border:1px solid #cbd7e5;padding:12px;background:#fff}
+button{border:0;background:#1267d8;color:#fff;font-weight:700;cursor:pointer}.green{background:#159447}.gray{background:#edf3f8;color:#21425f}
+.note{background:#fff8dd;border:1px solid #f0d66b;border-radius:12px;padding:11px;margin-top:10px;font-size:14px}
+.status{margin-top:10px;font-weight:700}.ok{color:#087c35}.err{color:#c62828}
+.viewerWrap{overflow:auto;background:#dfe8f1;border-radius:16px;padding:12px;text-align:center}
+#pdfCanvas{max-width:100%;height:auto;background:#fff;box-shadow:0 2px 8px #0003}
+.cropArea{position:relative;display:inline-block;line-height:0;touch-action:none}
+#cropCanvas{max-width:100%;height:auto;background:#fff}
+.cropBox{position:absolute;border:3px solid #1683ff;background:#1683ff18;cursor:move;touch-action:none}
+.cropBox .tag{position:absolute;left:0;top:-28px;background:#1683ff;color:#fff;font-size:12px;font-weight:700;padding:5px 8px;border-radius:7px 7px 0 0;line-height:1}
+.handle{position:absolute;width:18px;height:18px;background:#fff;border:3px solid #1683ff;border-radius:50%;z-index:3}
+.tl{left:-10px;top:-10px}.tr{right:-10px;top:-10px}.bl{left:-10px;bottom:-10px}.br{right:-10px;bottom:-10px}
+.crops{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.mini{background:#f7fafc;border:1px solid #d9e4ef;border-radius:12px;padding:8px;text-align:center}.mini img{max-width:100%;max-height:150px}
+.a4{width:210mm;min-height:297mm;background:#fff;margin:10px auto;padding:12mm;box-shadow:0 2px 10px #0002}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:7mm;margin-top:10mm}
+.idcard{width:85.6mm;height:54mm;border:1px solid #111;overflow:hidden;background:#fff}.idcard img{width:100%;height:100%;object-fit:fill;display:block}
+.a4title{text-align:center;font-size:11px;color:#555}
+@media(max-width:700px){.row,.crops{grid-template-columns:1fr}.a4{transform-origin:top left;transform:scale(.48);margin-bottom:-150mm;margin-left:0}.idcard{width:85.6mm;height:54mm}}
+@page{size:A4;margin:0}
+@media print{
+html,body{background:#fff!important;margin:0!important;padding:0!important;width:210mm!important;min-height:297mm!important}.noPrint,header,.card:not(#printCard),#printCard h2,#printCard>.row,#printCard>.a4title{display:none!important}#printCard{display:block!important;margin:0!important;padding:0!important;background:#fff!important;box-shadow:none!important;border-radius:0!important;width:210mm!important;max-width:none!important}.a4{display:block!important;box-shadow:none!important;margin:0!important;width:210mm!important;height:297mm!important;min-height:297mm!important;padding:12mm!important;transform:none!important;overflow:hidden!important}.a4title{display:none!important}.cards{margin-top:10mm!important}}
+
+</style>
+</head>
+<body>
+<header><img class="appLogo" src="digital-world-logo.png" alt="Digital World Logo" onerror="this.onerror=null;this.src='icons/icon-192.png';">Digital World PVC Card Print App<button id="installBtn" class="installBtn" type="button">📲 Install App</button><div class="sub">A4 Page • 1 ID Card • Front + Back • 85.6 × 54 mm • No Payment</div></header>
+<main>
+
+<section class="card noPrint">
+<h2>🔐 Password-Protected Aadhaar / PAN PDF</h2>
+<div class="row">
+<div><label>Card Type</label><select id="type"><option>Aadhaar Card</option><option>PAN Card</option><option>Voter Card</option><option>Ayushman Card</option><option>E-Shram Card</option><option>ABHA Card</option></select></div>
+<div><label>PDF Upload</label><input id="pdfFile" type="file" accept="application/pdf,.pdf"></div>
+</div>
+<label>PDF Password <span style="font-weight:400">(Aadhaar PDF के लिए password डालें)</span></label>
+<div style="display:flex;gap:8px;align-items:center">
+<input id="password" type="password" autocomplete="off" placeholder="उदा. NAME के पहले 4 अक्षर + जन्म वर्ष" style="flex:1">
+<button type="button" class="gray" id="showPw" style="width:auto;min-width:92px">👁️ Show</button>
+</div>
+<div class="row" style="margin-top:10px">
+<button id="openBtn">🔓 Open PDF</button><button class="gray" id="clearBtn">🗑️ Clear</button>
+</div>
+<div id="status" class="status">पहले PDF चुनें।</div>
+<div class="note">🔒 Password bypass/crack नहीं किया जाता। Aadhaar e-Aadhaar PDF में सामान्यतः <b>नाम के पहले 4 अक्षर CAPITAL + जन्म वर्ष</b> password होता है। उदाहरण: नाम RAHUL, जन्म वर्ष 1995 → <b>RAHU1995</b>. PDF आपके browser में ही process होती है; किसी server पर upload नहीं होती।</div>
+</section>
+
+<section class="card noPrint">
+<h2>✂️ Front + Back Crop</h2>
+<div class="note">Front/Back के चारों कोनों पर बने गोल handles को अलग-अलग drag करें। Box को बीच से drag करके पूरा box भी move कर सकते हैं।</div>
+<div class="viewerWrap">
+<div class="cropArea" id="cropArea" style="display:none">
+<canvas id="cropCanvas"></canvas>
+<div class="cropBox" id="frontBox"><span class="tag">FRONT</span><i class="handle tl"></i><i class="handle tr"></i><i class="handle bl"></i><i class="handle br"></i></div>
+<div class="cropBox" id="backBox"><span class="tag">BACK</span><i class="handle tl"></i><i class="handle tr"></i><i class="handle bl"></i><i class="handle br"></i></div>
+</div>
+</div>
+<div class="row" style="margin-top:12px"><button id="useBtn" class="green">✅ Use Cropped ID</button><button id="resetBtn" class="gray">↩ Reset Crop</button></div>
+</section>
+
+<section class="card" id="printCard">
+<h2>👀 A4 Preview</h2>
+<div class="a4" id="a4Preview">
+<div class="a4title">Digital World PVC Card Print App — <b id="previewType">Aadhaar Card</b></div>
+<div class="cards">
+<div class="idcard"><img id="frontImg"></div>
+<div class="idcard"><img id="backImg"></div>
+</div>
+</div>
+<div class="row" style="margin-top:12px"><button id="printBtn" class="green">🖨️ Print / Save PDF</button><button id="clearAll" class="gray">🗑️ Clear All</button></div>
+</section>
+
+<section class="card noPrint">
+<h2>📏 Print Size</h2>
+<div class="note">A4 paper पर Front और Back एक ही page में side-by-side रहेंगे। हर card का exact size <b>85.6 × 54 mm</b> रखा गया है। Printer में <b>Actual size / 100%</b> चुनें; “Fit to page” बंद रखें।</div>
+</section>
+
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+let pdfjsLib=window.pdfjsLib||window['pdfjs-dist/build/pdf']||null, pdfDoc=null, pageCanvas=document.getElementById('cropCanvas');
+const area=document.getElementById('cropArea'), statusEl=document.getElementById('status');
+const frontBox=document.getElementById('frontBox'), backBox=document.getElementById('backBox');
+let boxes={front:{x:0,y:0,w:0,h:0},back:{x:0,y:0,w:0,h:0}}, drag=null;
+
+(function(){
+  if(window.pdfjsLib){
+    pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    setStatus('PDF engine तैयार है। PDF चुनें और password डालकर Open PDF दबाएँ।',true);
+  }else{
+    statusEl.textContent='PDF engine load नहीं हुआ। Internet ON करके app दोबारा खोलें।';
+    statusEl.className='status err';
+  }
+})();
+function setStatus(t,ok=false){statusEl.textContent=t;statusEl.className='status '+(ok?'ok':'err')}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function renderBox(box,el){
+ el.style.left=box.x+'px';el.style.top=box.y+'px';el.style.width=box.w+'px';el.style.height=box.h+'px';
+}
+function initialBoxes(w,h){
+ let cw=w*.38,ch=h*.22, gap=w*.04;
+ boxes.front={x:w*.10,y:h*.68,w:cw,h:ch};
+ boxes.back={x:w*.52,y:h*.68,w:cw,h:ch};
+ renderBox(boxes.front,frontBox);renderBox(boxes.back,backBox);
+}
+function pointerPos(ev){
+ const r=pageCanvas.getBoundingClientRect(), sx=pageCanvas.width/r.width, sy=pageCanvas.height/r.height;
+ return {x:(ev.clientX-r.left)*sx,y:(ev.clientY-r.top)*sy};
+}
+function startDrag(ev,which,mode){
+ ev.preventDefault(); const p=pointerPos(ev), b=boxes[which];
+ drag={which,mode,sx:p.x,sy:p.y,orig:{...b}}; ev.currentTarget.setPointerCapture?.(ev.pointerId);
+}
+function setupBox(el,which){
+ el.addEventListener('pointerdown',ev=>{
+  const handle=ev.target.closest('.handle'); startDrag(ev,which,handle?handle.className.replace('handle ',''):'move');
+ });
+}
+setupBox(frontBox,'front');setupBox(backBox,'back');
+document.addEventListener('pointermove',ev=>{
+ if(!drag)return; const p=pointerPos(ev),o=drag.orig,b=boxes[drag.which],min=40;
+ let dx=p.x-drag.sx,dy=p.y-drag.sy;
+ if(drag.mode==='move'){b.x=clamp(o.x+dx,0,pageCanvas.width-o.w);b.y=clamp(o.y+dy,0,pageCanvas.height-o.h)}
+ else{
+  if(drag.mode.includes('l')){b.x=clamp(o.x+dx,0,o.x+o.w-min);b.w=o.w-(b.x-o.x)}
+  if(drag.mode.includes('r')){b.w=clamp(o.w+dx,min,pageCanvas.width-b.x)}
+  if(drag.mode.includes('t')){b.y=clamp(o.y+dy,0,o.y+o.h-min);b.h=o.h-(b.y-o.y)}
+  if(drag.mode.includes('b')){b.h=clamp(o.h+dy,min,pageCanvas.height-b.y)}
+ }
+ renderBox(b,drag.which==='front'?frontBox:backBox);
+});
+document.addEventListener('pointerup',()=>drag=null);
+
+async function openPDF(){
+ const f=document.getElementById('pdfFile').files[0];
+ if(!f)return setStatus('पहले PDF चुनें।');
+ if(!pdfjsLib)return setStatus('PDF engine अभी load नहीं हुआ। Internet ON करके दोबारा कोशिश करें।');
+ const pw=document.getElementById('password').value.trim();
+ if(!pw)return setStatus('Password डालें, फिर Open PDF दबाएँ।');
+ let loadingTask=null;
+ try{
+  setStatus('🔐 Password से PDF खोल रहा है…',true);
+  const data=new Uint8Array(await f.arrayBuffer());
+  loadingTask=pdfjsLib.getDocument({
+    data,
+    password:pw,
+    isEvalSupported:false,
+    useWorkerFetch:false,
+    disableAutoFetch:false
+  });
+  loadingTask.onPassword=(updatePassword, reason)=>{
+    updatePassword(pw);
+  };
+  pdfDoc=await loadingTask.promise;
+  const page=await pdfDoc.getPage(1), vp=page.getViewport({scale:2});
+  pageCanvas.width=vp.width;pageCanvas.height=vp.height;
+  await page.render({canvasContext:pageCanvas.getContext('2d'),viewport:vp}).promise;
+  area.style.display='inline-block';initialBoxes(vp.width,vp.height);
+  setStatus('✅ PDF खुल गया। अब Front और Back के चारों corners से crop करें।',true);
+ }catch(e){
+  console.error(e);
+  const name=String(e?.name||''), msg=String(e?.message||'');
+  if(name==='PasswordException' || /password|passwordexception|invalid_password/i.test(msg)){
+    setStatus('❌ Password स्वीकार नहीं हुआ। Password को बिना space के दोबारा जाँचें।');
+  }else if(/worker|module|failed to fetch|network/i.test(msg)){
+    setStatus('❌ PDF engine/Internet समस्या। Internet ON करके app दोबारा खोलें।');
+  }else{
+    setStatus('❌ PDF open नहीं हुआ: '+(msg||name||'Unknown error'));
+  }
+ }
+}
+document.getElementById('showPw').onclick=()=>{
+ const p=document.getElementById('password');
+ p.type=p.type==='password'?'text':'password';
+ document.getElementById('showPw').textContent=p.type==='password'?'👁️ Show':'🙈 Hide';
+};
+document.getElementById('openBtn').onclick=openPDF;
+document.getElementById('resetBtn').onclick=()=>{if(pageCanvas.width)initialBoxes(pageCanvas.width,pageCanvas.height)};
+document.getElementById('clearBtn').onclick=()=>{document.getElementById('pdfFile').value='';document.getElementById('password').value='';area.style.display='none';pdfDoc=null;setStatus('पहले PDF चुनें।')};
+
+function cropToDataURL(b){
+ const c=document.createElement('canvas'), scale=2;
+ c.width=Math.round(b.w*scale);c.height=Math.round(b.h*scale);
+ c.getContext('2d').drawImage(pageCanvas,b.x,b.y,b.w,b.h,0,0,c.width,c.height);
+ return c.toDataURL('image/jpeg',.96);
+}
+document.getElementById('useBtn').onclick=()=>{
+ if(!pageCanvas.width)return setStatus('पहले PDF खोलें।');
+ document.getElementById('frontImg').src=cropToDataURL(boxes.front);
+ document.getElementById('backImg').src=cropToDataURL(boxes.back);
+ document.getElementById('previewType').textContent=document.getElementById('type').value;
+ window.scrollTo({top:document.getElementById('a4Preview').offsetTop-20,behavior:'smooth'});
+};
+document.getElementById('printBtn').onclick=()=>{
+ if(!document.getElementById('frontImg').src || !document.getElementById('backImg').src){
+   return setStatus('पहले Use Cropped ID दबाएँ।');
+ }
+ window.print();
+};
+
+document.getElementById('clearAll').onclick=()=>{
+ document.getElementById('frontImg').removeAttribute('src');document.getElementById('backImg').removeAttribute('src');
+ document.getElementById('pdfFile').value='';document.getElementById('password').value='';area.style.display='none';pdfDoc=null;setStatus('पहले PDF चुनें।');
+};
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+  });
+}
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  const btn = document.getElementById('installBtn');
+  if (btn) btn.style.display = 'block';
+});
+document.getElementById('installBtn')?.addEventListener('click', async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  document.getElementById('installBtn').style.display = 'none';
+});
+window.addEventListener('appinstalled', () => {
+  const btn = document.getElementById('installBtn');
+  if (btn) btn.style.display = 'none';
+});
+</script>
+</body>
+</html>
