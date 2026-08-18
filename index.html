@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b3d91">
+  <title>DIGITAL WORLD - All Digital & Government Services</title>
+  <style>
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial,"Noto Sans Devanagari",sans-serif;
+      background:#f2f5f9;
+      color:#18212b;
+    }
+    a{text-decoration:none;color:inherit}
+    .topbar{
+      background:#092b63;
+      color:#fff;
+      text-align:center;
+      padding:8px 12px;
+      font-size:14px;
+      font-weight:700;
+    }
+    header{
+      background:linear-gradient(135deg,#0b3d91,#1769c2);
+      color:#fff;
+      padding:22px 15px 26px;
+      text-align:center;
+    }
+    .logo{
+      width:78px;height:78px;
+      margin:0 auto 10px;
+      border:3px solid #fff;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff;
+      color:#0b3d91;
+      font-size:38px;
+      font-weight:900;
+      box-shadow:0 4px 12px #0003;
+    }
+    h1{margin:0;font-size:30px;letter-spacing:1px}
+    .subtitle{margin:6px 0 0;font-size:17px;font-weight:700}
+    .tagline{margin:9px auto 0;max-width:700px;font-size:14px;opacity:.95}
+    .contact{
+      display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+      margin-top:16px;
+    }
+    .contact a{
+      background:#fff;color:#0b3d91;
+      padding:10px 16px;border-radius:25px;
+      font-weight:800;box-shadow:0 3px 8px #0003;
+    }
+    .container{max-width:1100px;margin:auto;padding:18px 12px 40px}
+    .searchbox{
+      position:sticky;top:0;z-index:20;
+      padding:8px 0;
+      background:#f2f5f9ee;
+      backdrop-filter:blur(7px);
+    }
+    #search{
+      width:100%;padding:14px 17px;border:2px solid #d4dce8;
+      border-radius:14px;font-size:16px;outline:none;background:#fff;
+      box-shadow:0 2px 8px #00000010;
+    }
+    #search:focus{border-color:#1769c2}
+    .quick{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0 22px;
+    }
+    .quick a{
+      background:#fff;border-radius:12px;padding:12px;text-align:center;
+      font-weight:800;border:1px solid #e0e6ee;box-shadow:0 2px 7px #0000000d;
+    }
+    .section{
+      margin-top:24px;
+    }
+    .section-title{
+      display:flex;align-items:center;gap:9px;
+      color:#fff;padding:12px 15px;border-radius:12px 12px 0 0;
+      font-size:20px;font-weight:900;
+    }
+    .government{background:#2758a6}
+    .financial{background:#34854b}
+    .education{background:#a74f6c}
+    .health{background:#2e7c84}
+    .agriculture{background:#c45b40}
+    .digital{background:#5b58a8}
+    .other{background:#5c6875}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      background:#fff;
+      padding:12px;
+      border-radius:0 0 12px 12px;
+      box-shadow:0 3px 10px #0000000d;
+    }
+    .service{
+      display:flex;align-items:center;gap:11px;
+      min-height:76px;padding:12px;
+      background:#f8fafc;
+      border:1px solid #e1e7ef;
+      border-radius:11px;
+      transition:.18s;
+    }
+    .service:hover{transform:translateY(-2px);box-shadow:0 5px 14px #0002;border-color:#9db6d5}
+    .icon{
+      min-width:42px;width:42px;height:42px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      background:#e8f0fb;font-size:23px;
+    }
+    .service strong{display:block;font-size:15px;line-height:1.25}
+    .service small{display:block;color:#66717e;margin-top:4px;font-size:11px}
+    .notice{
+      margin:22px 0;
+      padding:15px;
+      background:#fff8d8;
+      border:1px solid #ecd36a;
+      border-radius:12px;
+      font-size:13px;
+      line-height:1.55;
+    }
+    footer{
+      background:#172332;color:#fff;text-align:center;padding:24px 14px;
+      font-size:13px;
+    }
+    .footer-title{font-size:21px;font-weight:900;margin-bottom:6px}
+    .hidden{display:none!important}
+    @media(max-width:800px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:560px){
+      h1{font-size:25px}
+      .subtitle{font-size:15px}
+      .grid{grid-template-columns:1fr}
+      .quick{grid-template-columns:1fr 1fr}
+      .service{min-height:68px}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">एक ही स्थान पर सभी डिजिटल एवं सरकारी सेवाएँ उपलब्ध</div>
+
+  <header>
+    <div class="logo">DW</div>
+    <h1>DIGITAL WORLD</h1>
+    <div class="subtitle">COMPUTER EDUCATION CENTER</div>
+    <div class="tagline">तेज़ • आसान • विश्वसनीय डिजिटल एवं सरकारी सेवा सहायता</div>
+    <div class="contact">
+      <a href="tel:8797668195">📞 8797668195</a>
+      <a href="#services">📋 सभी सेवाएँ</a>
+    </div>
+  </header>
+
+  <main class="container" id="services">
+
+    <div class="searchbox">
+      <input id="search" type="search" placeholder="🔎 सेवा खोजें... जैसे PAN, Voter, Ayushman, PM-KISAN" oninput="filterServices()">
+    </div>
+
+    <div class="quick">
+      <a href="https://jharsewa.jharkhand.gov.in/" target="_blank" rel="noopener">🏛️ Jharkhand e-District</a>
+      <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener">🗳️ Voter Services</a>
+      <a href="https://www.udyamregistration.gov.in/" target="_blank" rel="noopener">🏢 Udyam/MSME</a>
+      <a href="https://www.digilocker.gov.in/" target="_blank" rel="noopener">📁 DigiLocker</a>
+    </div>
+
+    <div class="notice">
+      <b>महत्वपूर्ण:</b> नीचे दिए गए बटन संबंधित सरकारी/आधिकारिक पोर्टल पर ले जाते हैं।
+      आवेदन, शुल्क, पात्रता और दस्तावेज़ की अंतिम जानकारी संबंधित आधिकारिक वेबसाइट पर ही जाँचें।
+    </div>
+
+    <!-- सरकारी सेवाएँ -->
+    <section class="section">
+      <div class="section-title government">🏛️ सरकारी सेवाएँ</div>
+      <div class="grid">
+
+        <a class="service" href="https://www.incometax.gov.in/iec/foportal/" target="_blank" rel="noopener">
+          <span class="icon">🪪</span><span><strong>PAN Card</strong><small>PAN आवेदन एवं सेवाएँ</small></span>
+        </a>
+
+        <a class="service" href="https://voters.eci.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🗳️</span><span><strong>Voter ID</strong><small>Voter registration / e-EPIC</small></span>
+        </a>
+
+        <a class="service" href="https://jharsewa.jharkhand.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">📜</span><span><strong>आय / जाति / निवास</strong><small>Jharkhand e-District सेवाएँ</small></span>
+        </a>
+
+        <a class="service" href="https://jharsewa.jharkhand.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🏛️</span><span><strong>e-District</strong><small>झारखंड सरकारी सेवाएँ</small></span>
+        </a>
+
+        <a class="service" href="https://www.passportindia.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🛂</span><span><strong>Passport Seva</strong><small>पासपोर्ट आवेदन</small></span>
+        </a>
+
+        <a class="service" href="https://parivahan.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🚗</span><span><strong>Parivahan</strong><small>DL / RC / वाहन सेवाएँ</small></span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- वित्तीय सेवाएँ -->
+    <section class="section">
+      <div class="section-title financial">💳 वित्तीय सेवाएँ</div>
+      <div class="grid">
+
+        <a class="service" href="https://www.npci.org.in/what-we-do/aeps/product-overview" target="_blank" rel="noopener">
+          <span class="icon">🏦</span><span><strong>AEPS</strong><small>आधार आधारित बैंकिंग</small></span>
+        </a>
+
+        <a class="service" href="https://www.npci.org.in/what-we-do/bhim/product-overview" target="_blank" rel="noopener">
+          <span class="icon">💸</span><span><strong>Digital Payment</strong><small>UPI / डिजिटल भुगतान जानकारी</small></span>
+        </a>
+
+        <a class="service" href="https://www.npci.org.in/what-we-do/bharat-billpay" target="_blank" rel="noopener">
+          <span class="icon">💡</span><span><strong>Bill Payment</strong><small>बिजली / पानी आदि</small></span>
+        </a>
+
+        <a class="service" href="https://www.npci.org.in/what-we-do/netc-fastag" target="_blank" rel="noopener">
+          <span class="icon">🛣️</span><span><strong>FASTag</strong><small>FASTag सेवाएँ</small></span>
+        </a>
+
+        <a class="service" href="https://www.irdai.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🛡️</span><span><strong>Insurance</strong><small>बीमा संबंधी जानकारी</small></span>
+        </a>
+
+        <a class="service" href="https://www.npci.org.in/what-we-do/bharat-billpay" target="_blank" rel="noopener">
+          <span class="icon">📱</span><span><strong>Recharge / BBPS</strong><small>रिचार्ज एवं बिल पेमेंट</small></span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- शिक्षा -->
+    <section class="section">
+      <div class="section-title education">🎓 शिक्षा सेवाएँ</div>
+      <div class="grid">
+
+        <a class="service" href="https://scholarships.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🎓</span><span><strong>Scholarship</strong><small>National Scholarship Portal</small></span>
+        </a>
+
+        <a class="service" href="https://services.india.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">📝</span><span><strong>Online Admission</strong><small>सरकारी online services</small></span>
+        </a>
+
+        <a class="service" href="https://services.india.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">📋</span><span><strong>Exam Forms</strong><small>ऑनलाइन आवेदन सेवाएँ</small></span>
+        </a>
+
+        <a class="service" href="https://services.india.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">💰</span><span><strong>Fee / Application</strong><small>सरकारी आवेदन सहायता</small></span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- स्वास्थ्य -->
+    <section class="section">
+      <div class="section-title health">🏥 स्वास्थ्य सेवाएँ</div>
+      <div class="grid">
+
+        <a class="service" href="https://pmjay.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">❤️</span><span><strong>Ayushman Bharat</strong><small>PM-JAY सेवाएँ</small></span>
+        </a>
+
+        <a class="service" href="https://abha.abdm.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🩺</span><span><strong>ABHA Health ID</strong><small>Digital Health Account</small></span>
+        </a>
+
+        <a class="service" href="https://abdm.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🏥</span><span><strong>ABDM</strong><small>Digital health services</small></span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- कृषि -->
+    <section class="section">
+      <div class="section-title agriculture">🌾 कृषि सेवाएँ</div>
+      <div class="grid">
+
+        <a class="service" href="https://pmkisan.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🌱</span><span><strong>PM-KISAN</strong><small>किसान सहायता</small></span>
+        </a>
+
+        <a class="service" href="https://pmfby.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🌾</span><span><strong>Crop Insurance</strong><small>प्रधानमंत्री फसल बीमा</small></span>
+        </a>
+
+        <a class="service" href="https://agriwelfare.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">👨‍🌾</span><span><strong>कृषि योजनाएँ</strong><small>कृषि विभाग की जानकारी</small></span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- डिजिटल सेवाएँ -->
+    <section class="section">
+      <div class="section-title digital">💻 डिजिटल सेवाएँ</div>
+      <div class="grid">
+
+        <a class="service" href="https://www.digilocker.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">📁</span><span><strong>DigiLocker</strong><small>डिजिटल दस्तावेज़</small></span>
+        </a>
+
+        <a class="service" href="https://www.eshram.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">👷</span><span><strong>e-Shram</strong><small>असंगठित श्रमिक पंजीकरण</small></span>
+        </a>
+
+        <a class="service" href="https://www.udyamregistration.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🏢</span><span><strong>MSME / Udyam</strong><small>उद्यम Registration</small></span>
+        </a>
+
+        <a class="service" href="https://www.digitalindia.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🇮🇳</span><span><strong>Digital India</strong><small>Digital India services</small></span>
+        </a>
+
+        <a class="service" href="https://services.india.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🖨️</span><span><strong>Print / Scan</strong><small>केंद्र पर उपलब्ध सेवा</small></span>
+        </a>
+
+        <a class="service" href="https://services.india.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">📄</span><span><strong>PDF / Documents</strong><small>PDF सहायता / दस्तावेज़</small></span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- अन्य -->
+    <section class="section">
+      <div class="section-title other">⭐ अन्य सेवाएँ</div>
+      <div class="grid">
+
+        <a class="service" href="https://www.udyamregistration.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🏭</span><span><strong>MSME Registration</strong><small>Udyam Registration</small></span>
+        </a>
+
+        <a class="service" href="https://www.eshram.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🧑‍🔧</span><span><strong>e-Shram Card</strong><small>श्रमिक कार्ड</small></span>
+        </a>
+
+        <a class="service" href="https://pmvishwakarma.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">🔨</span><span><strong>PM Vishwakarma</strong><small>योजना आवेदन</small></span>
+        </a>
+
+        <a class="service" href="https://services.india.gov.in/" target="_blank" rel="noopener">
+          <span class="icon">📑</span><span><strong>Government Services</strong><small>National Services Portal</small></span>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-title">DIGITAL WORLD COMPUTER EDUCATION CENTER</div>
+    <div>सभी डिजिटल एवं सरकारी सेवाएँ — एक ही स्थान पर</div>
+    <div style="margin-top:10px">📞 8797668195</div>
+    <div style="margin-top:8px">© 2026 DIGITAL WORLD • All Rights Reserved</div>
+  </footer>
+
+  <script>
+    function filterServices(){
+      const q = document.getElementById("search").value.trim().toLowerCase();
+      const services = document.querySelectorAll(".service");
+      const sections = document.querySelectorAll(".section");
+
+      services.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.classList.toggle("hidden", q && !text.includes(q));
+      });
+
+      sections.forEach(section => {
+        const visible = section.querySelectorAll(".service:not(.hidden)").length;
+        section.classList.toggle("hidden", q && visible === 0);
+      });
+    }
+  </script>
+
+</body>
+</html>
